@@ -1,0 +1,224 @@
+/* ==========================================================
+   EDITORIAL UI ARCHITECTURE — GLOBAL STYLES
+   "Quiet Luxury" Aesthetic System
+   
+   RULE: Do not add @keyframes, transition, or animation
+   properties here. All motion must go through GSAP hooks
+   in /components/animations.
+   
+   RULE: Do not import external fonts via @import url().
+   Fonts are declared in the font-face section below and
+   must match the typefaces in tailwind.config.ts.
+   ========================================================== */
+
+/* ---------- Tailwind Base Directives ---------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- CSS Custom Properties (mirrors tailwind.config.ts tokens) ---------- */
+:root {
+  /* Color tokens */
+  --color-obsidian:   #0A0A0A;
+  --color-ink:        #111111;
+  --color-graphite:   #1C1C1C;
+  --color-slate:      #2A2A2A;
+  --color-iron:       #3D3D3D;
+  --color-ash:        #6B6B6B;
+  --color-fog:        #9A9A9A;
+  --color-silver:     #C4C4C4;
+  --color-cloud:      #E0E0E0;
+  --color-white:      #F5F5F5;
+  --color-pure-white: #FFFFFF;
+
+  /* Typography tokens */
+  --font-display:  'Editorial New', 'Playfair Display', Georgia, serif;
+  --font-body:     'Neue Montreal', 'Inter', system-ui, sans-serif;
+  --font-mono:     'DM Mono', 'Fira Code', monospace;
+
+  /* Spacing tokens (exaggerated whitespace scale) */
+  --space-section: 12rem;
+  --space-block:   6rem;
+  --space-gap:     3rem;
+
+  /* Motion tokens (for GSAP defaults) */
+  --ease-out-expo:    cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  --duration-fast:    0.35s;
+  --duration-base:    0.65s;
+  --duration-slow:    1.1s;
+}
+
+/* ---------- Font Face Declarations ---------- */
+@font-face {
+  font-family: 'Editorial New';
+  src: url('/fonts/EditorialNew-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Editorial New';
+  src: url('/fonts/EditorialNew-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('/fonts/NeueMontreal-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('/fonts/NeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Reset & Base Styles ---------- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--color-obsidian);
+    color: var(--color-cloud);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  p {
+    font-family: var(--font-body);
+    max-width: 65ch;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img, video {
+    display: block;
+    max-width: 100%;
+  }
+
+  input, textarea, select {
+    font-family: var(--font-body);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+}
+
+/* ---------- Utility Layer Additions ---------- */
+@layer utilities {
+  .clip-inset-full  { clip-path: inset(0 0 100% 0); }
+  .clip-inset-none  { clip-path: inset(0 0 0% 0); }
+
+  .text-balance     { text-wrap: balance; }
+  .text-pretty      { text-wrap: pretty; }
+
+  .will-transform   { will-change: transform; }
+  .will-opacity     { will-change: opacity; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-padding {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  .block-padding {
+    padding-top: var(--space-block);
+    padding-bottom: var(--space-block);
+  }
+}
+
+/* ---------- Component Layer ---------- */
+@layer components {
+  .container {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding-inline: 4rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      padding-inline: 6rem;
+    }
+  }
+
+  .editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/textures/noise.png');
+    background-size: 200px 200px;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
