@@ -1,12 +1,35 @@
-// /components/3d — React Three Fiber & Spline Wrappers
-//
-// All 3D scene components live here.
-// Claude must import from this folder rather than creating new Three.js setups.
-//
-// Intended contents:
-//   - SplineScene.tsx     — Spline embed wrapper with lazy loading
-//   - R3FCanvas.tsx       — Base React Three Fiber canvas with default camera/lights
-//   - ModelLoader.tsx     — GLTF/GLB model loader with suspense boundary
-//   - EnvironmentMap.tsx  — HDR environment map utility
+/**
+ * index.ts
+ * /components/3d/index.ts
+ *
+ * Barrel export for all 3D components.
+ *
+ * RULE: All React Three Fiber and Spline content must be wrapped using
+ * components from this folder. Claude must NOT:
+ *   - Create raw Canvas elements via @react-three/fiber directly in pages
+ *   - Embed Spline via <script> tags, iframes, or CDN URLs
+ *   - Instantiate new THREE.WebGLRenderer instances
+ *   - Import @react-three/fiber or @splinetool/react-spline in page files
+ *     (import only from this barrel instead)
+ *
+ * RULE: 3D scene logic lives here. Claude must import from this folder
+ * rather than creating new Three.js scene setups.
+ *
+ * Available components:
+ *   SceneWrapper  — React Three Fiber canvas with defaults, lighting, and Lenis parallax
+ *   SplineEmbed   — Lazy-loaded Spline scene with Lenis integration
+ *
+ * Planned additions (create file then export here):
+ *   ModelViewer      — GLTF/GLB model loader with GSAP-driven rotation
+ *   ParticleField    — Shader-based ambient particle system
+ *   ScrollMesh       — Geometry that deforms on GSAP scroll scrub
+ *   EnvironmentRig   — HDRI environment preset for product renders
+ */
 
-export {}; // barrel export — populate as components are added
+// ─── React Three Fiber canvas ─────────────────────────────────────────────────
+export { SceneWrapper } from './SceneWrapper';
+export type { SceneWrapperProps } from './SceneWrapper';
+
+// ─── Spline ───────────────────────────────────────────────────────────────────
+export { SplineEmbed } from './SplineEmbed';
+export type { SplineEmbedProps } from './SplineEmbed';
